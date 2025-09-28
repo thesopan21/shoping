@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -43,32 +44,36 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'top']}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Saved</Text>
-      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+      >
 
-      {/* Tabs */}
-      <View style={styles.tabs}>
-        {tabs.map((tab, index) => {
-          const active = tab === selectedTab;
-          return (
-            <TouchableOpacity
-              key={index}
-              style={[styles.tab, active && styles.tabActive]}
-              onPress={() => setSelectedTab(tab)}
-            >
-              <Text style={[styles.tabText, active && styles.tabTextActive]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Saved</Text>
+        </View>
 
-      {selectedTab === 'Collections' && <Section data={data} isCollections={true} />}
-      {selectedTab === 'Outfits' && <Section data={data.reverse()} />}
-      {selectedTab === 'Items' && <ItemsTab />}
+        {/* Tabs */}
+        <View style={styles.tabs}>
+          {tabs.map((tab, index) => {
+            const active = tab === selectedTab;
+            return (
+              <TouchableOpacity
+                key={index}
+                style={[styles.tab, active && styles.tabActive]}
+                onPress={() => setSelectedTab(tab)}
+              >
+                <Text style={[styles.tabText, active && styles.tabTextActive]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
 
+        {selectedTab === 'Collections' && <Section data={data} isCollections={true} />}
+        {selectedTab === 'Outfits' && <Section data={data.reverse()} />}
+        {selectedTab === 'Items' && <ItemsTab />}
+      </ScrollView>
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
         <Ionicons name="sparkles-outline" size={22} color="#F97316" />

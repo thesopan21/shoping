@@ -23,7 +23,7 @@ const Section: FC<SectionProps> = ({
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       {isCollections &&
         <View style={styles.mainContent}>
           <TouchableOpacity style={[styles.addChip]} >
@@ -49,19 +49,12 @@ const Section: FC<SectionProps> = ({
           </ScrollView>
         </View>
       }
-      <FlatList
-        data={data}
-        renderItem={({ item }) => {
-          return (
-            <CollectionCard item={item} />
-          )
-        }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: 16,
-          paddingBottom: 180 
-        }}
-      />
+
+      {data.map((i, idx) => {
+        return (
+          <CollectionCard key={idx} item={i} />
+        )
+      })}
     </View>
   )
 }
@@ -69,6 +62,9 @@ const Section: FC<SectionProps> = ({
 export default Section
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 20
+  },
   mainContent: {
     flexDirection: 'row',
     justifyContent: 'center',

@@ -78,23 +78,6 @@ export default function ItemsTab() {
 
   const [selectedFilter, setSelectedFilter] = useState('Type')
 
-  const renderItem = ({ item }: any) => (
-    <View style={styles.card}>
-      <View style={styles.topContainer}>
-        <Image source={{ uri: item.image }} style={styles.image} />
-        {item.tag && (
-          <View style={[styles.tag]}>
-            <Text style={styles.tagText}>{item.tagicon}</Text>
-            <Text style={styles.tagText}>{item.tag}</Text>
-          </View>
-        )}
-        <TouchableOpacity style={styles.bookmark}>
-          <Ionicons name="bookmark" size={18} color="#111" />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.title}>{item.title}</Text>
-    </View>
-  );
 
   return (
     <View style={styles.container}>
@@ -121,7 +104,29 @@ export default function ItemsTab() {
         })}
       </ScrollView>
 
-      <FlatList
+      <View style={styles.columnWrapperStyle}>
+        {items.map((item, idx) => {
+          return (
+            <View key={idx} style={styles.card}>
+              <View style={styles.topContainer}>
+                <Image source={{ uri: item.image }} style={styles.image} />
+                {item.tag && (
+                  <View style={[styles.tag]}>
+                    <Text style={styles.tagText}>{item.tagicon}</Text>
+                    <Text style={styles.tagText}>{item.tag}</Text>
+                  </View>
+                )}
+                <TouchableOpacity style={styles.bookmark}>
+                  <Ionicons name="bookmark" size={18} color="#111" />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.title}>{item.title}</Text>
+            </View>
+          )
+        })}
+      </View>
+
+      {/* <FlatList
         data={items}
         keyExtractor={(item) => item.id}
         numColumns={2}
@@ -129,7 +134,7 @@ export default function ItemsTab() {
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 180 }}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
     </View>
   );
 }
@@ -190,6 +195,11 @@ const styles = StyleSheet.create({
   },
   activeChipText: {
     fontWeight: '600'
+  },
+  columnWrapperStyle: {
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
   },
   card: {
     borderRadius: 12,
