@@ -1,5 +1,5 @@
 // App.tsx
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,14 +10,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function App() {
-  const tabs = ["Collections", "Outfits", "Items"];
-  const chips = ["+ Add new", "💼 Work", "🎉 Leisure", "🎀 Design"];
+const chips = ["+ Add new", "💼 Work", "🎉 Leisure", "🎀 Design"];
+const tabs = ["Collections", "Outfits", "Items"];
 
+export default function App() {
+  const [selectedTab, setSelectedTab] = useState('Collections')
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Saved</Text>
       </View>
@@ -25,11 +25,12 @@ export default function App() {
       {/* Tabs */}
       <View style={styles.tabs}>
         {tabs.map((tab, index) => {
-          const active = tab === "Collections";
+          const active = tab === selectedTab;
           return (
             <TouchableOpacity
               key={index}
               style={[styles.tab, active && styles.tabActive]}
+              onPress={() => setSelectedTab(tab)}
             >
               <Text style={[styles.tabText, active && styles.tabTextActive]}>
                 {tab}
@@ -70,9 +71,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FAF7F3", // background off-white
+    paddingHorizontal: 20,
   },
   header: {
-    paddingHorizontal: 20,
     paddingVertical: 12,
   },
   headerTitle: {
@@ -82,22 +83,29 @@ const styles = StyleSheet.create({
   },
   tabs: {
     flexDirection: "row",
-    paddingHorizontal: 20,
+    justifyContent:'space-between',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor:'#e4131350',
+    borderRadius: 20, 
     marginBottom: 8,
+    padding: 2.5
   },
   tab: {
-    paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
-    marginRight: 12,
+    flex: 1,
+    justifyContent:'center',
+    alignItems:'center'
   },
   tabActive: {
     backgroundColor: "#fff",
-    elevation: 3, // shadow on Android
-    shadowColor: "#000", // shadow on iOS
+    elevation: 3,
+    shadowColor: "#000", 
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#e4131350',
   },
   tabText: {
     color: "#6B7280",
