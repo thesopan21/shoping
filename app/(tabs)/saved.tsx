@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Section from "@/components/Section";
+import ItemsTab from "@/components/ItemSection";
 
 const tabs = ["Collections", "Outfits", "Items"];
 
@@ -66,6 +67,7 @@ export default function App() {
 
       {selectedTab === 'Collections' && <Section data={data} isCollections={true} />}
       {selectedTab === 'Outfits' && <Section data={data.reverse()} />}
+      {selectedTab === 'Items' && <ItemsTab />}
 
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
@@ -94,9 +96,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#e4131350',
-    borderRadius: 20,
+    borderRadius: 26,
     marginBottom: 8,
-    padding: 2.5
+    padding: 4
   },
   tab: {
     paddingVertical: 8,
