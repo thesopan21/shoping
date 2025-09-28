@@ -59,7 +59,7 @@ const Section: FC<SectionProps> = ({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           gap: 16,
-          paddingBottom: 20,
+          paddingBottom: 180 
         }}
       />
     </View>

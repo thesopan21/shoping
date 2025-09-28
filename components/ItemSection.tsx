@@ -15,7 +15,7 @@ const items = [
     id: "1",
     title: "Knot Detail KnitTop",
     tag: "Crop",
-    tagType: "work",
+    tagicon: "💼",
     image:
       "https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
@@ -23,23 +23,47 @@ const items = [
     id: "2",
     title: "Motif Printed Blouse",
     tag: "Crop",
-    tagType: "leisure",
+    tagicon: "🎉",
     image:
       "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     id: "3",
     title: "Striped Shirt",
-    tag: null,
-    tagType: null,
+    tag: 'design',
+    tagicon: '🎀',
     image:
       "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     id: "4",
     title: "Denim Shorts",
-    tag: null,
-    tagType: null,
+    tag: "Crop",
+    tagicon: "🎉",
+    image:
+      "https://images.pexels.com/photos/4046306/pexels-photo-4046306.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    id: "5",
+    title: "Motif Printed Blouse",
+    tag: "Crop",
+    tagicon: "🎉",
+    image:
+      "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    id: "6",
+    title: "Striped Shirt",
+    tag: 'design',
+    tagicon: '🎀',
+    image:
+      "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    id: "7",
+    title: "Denim Shorts",
+    tag: "Crop",
+    tagicon: "🎉",
     image:
       "https://images.pexels.com/photos/4046306/pexels-photo-4046306.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
@@ -56,24 +80,18 @@ export default function ItemsTab() {
 
   const renderItem = ({ item }: any) => (
     <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      {item.tag && (
-        <View
-          style={[
-            styles.tag,
-            item.tagType === "work"
-              ? styles.workTag
-              : item.tagType === "leisure"
-                ? styles.leisureTag
-                : null,
-          ]}
-        >
-          <Text style={styles.tagText}>{item.tag}</Text>
-        </View>
-      )}
-      <TouchableOpacity style={styles.bookmark}>
-        <Ionicons name="bookmark" size={18} color="#111" />
-      </TouchableOpacity>
+      <View style={styles.topContainer}>
+        <Image source={{ uri: item.image }} style={styles.image} />
+        {item.tag && (
+          <View style={[styles.tag]}>
+            <Text style={styles.tagText}>{item.tagicon}</Text>
+            <Text style={styles.tagText}>{item.tag}</Text>
+          </View>
+        )}
+        <TouchableOpacity style={styles.bookmark}>
+          <Ionicons name="bookmark" size={18} color="#111" />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>{item.title}</Text>
     </View>
   );
@@ -87,7 +105,6 @@ export default function ItemsTab() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.chipScrollContainer}
       >
-
         {_filters.map((f, i) => {
 
           const active = f.includes(selectedFilter);
@@ -110,15 +127,15 @@ export default function ItemsTab() {
         numColumns={2}
         columnWrapperStyle={{ justifyContent: "space-between" }}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: 180 }}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   header: {
     fontSize: 24,
     fontWeight: "700",
@@ -171,39 +188,46 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#111827",
   },
-  activeChipText:{
-    fontWeight:'600'
+  activeChipText: {
+    fontWeight: '600'
   },
   card: {
-    backgroundColor: "#fff",
     borderRadius: 12,
-    marginBottom: 18,
     paddingBottom: 8,
     width: "48%",
+  },
+  topContainer: {
+    backgroundColor: "#fff",
     overflow: "hidden",
     elevation: 2,
+    borderRadius: 12
   },
   image: {
     width: "100%",
-    height: 160,
+    height: 180,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     resizeMode: "cover",
   },
   tag: {
-    position: "absolute",
-    bottom: 40,
-    left: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 8,
+    // position: "absolute",
+    // bottom: 40,
+    // left: 10,
+    flexDirection: 'row',
+    // justifyContent:'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    gap: 12,
   },
-  workTag: { backgroundColor: "#EADFD5" },
-  leisureTag: { backgroundColor: "#FADADD" },
   tagText: {
     fontSize: 12,
     fontWeight: "600",
     color: "#444",
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+    backgroundColor: '#dedddcff'
   },
   bookmark: {
     position: "absolute",
@@ -215,10 +239,10 @@ const styles = StyleSheet.create({
     borderRadius: 24
   },
   title: {
-    fontSize: 13,
-    fontWeight: "500",
-    marginTop: 6,
-    marginLeft: 8,
+    fontSize: 14,
+    fontWeight: "400",
+    marginVertical: 8,
+    textAlign: 'center',
     color: "#333",
   },
   bottomNav: {
@@ -233,6 +257,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  navIcon: { fontSize: 20, color: "#888" },
-  activeNav: { color: "#000" },
+  navIcon: {
+    fontSize: 20,
+    color: "#888"
+  },
+  activeNav: {
+    color: "#000"
+  },
 });
