@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CollectionCard from "@/components/CollectionCard";
 
 const chips = ["💼 Work", "🎉 Leisure", "🎀 Design"];
 const tabs = ["Collections", "Outfits", "Items"];
@@ -68,6 +70,8 @@ export default function App() {
         </ScrollView>
       </View>
 
+      <CollectionCard />
+
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
         <Ionicons name="sparkles-outline" size={22} color="#F97316" />
@@ -125,14 +129,14 @@ const styles = StyleSheet.create({
     color: "#111827",
     fontWeight: "900",
   },
-  mainContent:{
-    flexDirection:'row',
+  mainContent: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  addChip:{
+  addChip: {
     borderRadius: 20,
-    borderStyle:'dashed',
+    borderStyle: 'dashed',
     borderWidth: 1,
     borderColor: '#00000050',
     width: _filterWidth,
@@ -162,47 +166,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#111827",
   },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingBottom: 100,
-  },
-  card: {
-    width: "47%",
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    marginBottom: 20,
-    overflow: "hidden",
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
-  },
-  cardImage: {
-    width: "100%",
-    height: 160,
-    resizeMode: "contain",
-  },
-  bookmarkBtn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    backgroundColor: "#fff",
-    padding: 6,
-    borderRadius: 50,
-    elevation: 2,
-  },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: "#E5E7EB",
-    backgroundColor: "#fff",
-  },
+
+ 
   fab: {
     position: "absolute",
     bottom: 12,
