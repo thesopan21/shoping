@@ -10,11 +10,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const chips = ["+ Add new", "💼 Work", "🎉 Leisure", "🎀 Design"];
+const chips = ["💼 Work", "🎉 Leisure", "🎀 Design"];
 const tabs = ["Collections", "Outfits", "Items"];
+const _filterWidth = 90;
+const _filterheight = 36;
 
 export default function App() {
-  const [selectedTab, setSelectedTab] = useState('Collections')
+  const [selectedTab, setSelectedTab] = useState('Collections');
+  const [selectedFilter, setSelectedFilter] = useState('Work')
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,23 +44,29 @@ export default function App() {
       </View>
 
       {/* Chips */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.chipScroll}
-      >
-        {chips.map((chip, i) => {
-          const active = chip.includes("Work");
-          return (
-            <TouchableOpacity
-              key={i}
-              style={[styles.chip, active && styles.chipActive]}
-            >
-              <Text style={styles.chipText}>{chip}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+      <View style={styles.mainContent}>
+        <TouchableOpacity style={[styles.addChip]} >
+          <Text style={styles.chipText}>+ Add new</Text>
+        </TouchableOpacity>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.chipScrollContainer}
+        >
+          {chips.map((chip, i) => {
+            const active = chip.includes(selectedFilter);
+            return (
+              <TouchableOpacity
+                key={i}
+                style={[styles.chip, active && styles.chipActive]}
+                onPress={() => setSelectedFilter(chip)}
+              >
+                <Text style={styles.chipText}>{chip}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      </View>
 
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
@@ -70,7 +79,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF7F3", // background off-white
+    backgroundColor: "#f1efedff",
     paddingHorizontal: 20,
   },
   header: {
@@ -83,10 +92,10 @@ const styles = StyleSheet.create({
   },
   tabs: {
     flexDirection: "row",
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor:'#e4131350',
-    borderRadius: 20, 
+    borderColor: '#e4131350',
+    borderRadius: 20,
     marginBottom: 8,
     padding: 2.5
   },
@@ -94,13 +103,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     flex: 1,
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   tabActive: {
     backgroundColor: "#fff",
     elevation: 3,
-    shadowColor: "#000", 
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
@@ -108,27 +117,46 @@ const styles = StyleSheet.create({
     borderColor: '#e4131350',
   },
   tabText: {
-    color: "#6B7280",
+    color: "gray",
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: "400",
   },
   tabTextActive: {
     color: "#111827",
-    fontWeight: "600",
+    fontWeight: "900",
   },
-  chipScroll: {
-    paddingHorizontal: 20,
+  mainContent:{
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addChip:{
+    borderRadius: 20,
+    borderStyle:'dashed',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#8b797950',
+    width: _filterWidth,
+    height: _filterheight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5
+  },
+  chipScrollContainer: {
     marginVertical: 8,
+    gap: 5
   },
   chip: {
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#ffffff",
     borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    marginRight: 12,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#8b797950',
+    width: _filterWidth,
+    height: _filterheight,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   chipActive: {
-    backgroundColor: "#FDE68A", // amber-ish for "Work"
+    backgroundColor: "#ff818150",
   },
   chipText: {
     fontSize: 14,
