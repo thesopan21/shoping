@@ -49,6 +49,7 @@ export default function TabLayout() {
         name="saved"
         options={{
           // title: 'Tab Two',
+          headerShown:false,
           tabBarIcon: ({ color }) => <MaterialIcons size={28} name="bookmark-outline" color={color} />,
         }}
       />
