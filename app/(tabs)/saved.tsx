@@ -1,23 +1,19 @@
 // App.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
-  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CollectionCard from "@/components/CollectionCard";
+import Section from "@/components/Section";
 
-const chips = ["💼 Work", "🎉 Leisure", "🎀 Design"];
 const tabs = ["Collections", "Outfits", "Items"];
-const _filterWidth = 90;
-const _filterheight = 36;
 
-const dummyData = [
+
+export const dummyData = [
   {
     "leftImage": 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
     "right1": "https://images.pexels.com/photos/2693849/pexels-photo-2693849.jpeg",
@@ -42,7 +38,6 @@ const dummyData = [
 
 export default function App() {
   const [selectedTab, setSelectedTab] = useState('Collections');
-  const [selectedFilter, setSelectedFilter] = useState('Work')
   const [data, setData] = useState([...dummyData])
 
   return (
@@ -69,44 +64,8 @@ export default function App() {
         })}
       </View>
 
-      {/* Chips */}
-      <View style={styles.mainContent}>
-        <TouchableOpacity style={[styles.addChip]} >
-          <Text style={styles.chipText}>+ Add new</Text>
-        </TouchableOpacity>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.chipScrollContainer}
-        >
-          {chips.map((chip, i) => {
-            const active = chip.includes(selectedFilter);
-            return (
-              <TouchableOpacity
-                key={i}
-                style={[styles.chip, active && styles.chipActive]}
-                onPress={() => setSelectedFilter(chip)}
-              >
-                <Text style={styles.chipText}>{chip}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-
-      <FlatList
-        data={data}
-        renderItem={({ item }) => {
-          return (
-            <CollectionCard item={item} />
-          )
-        }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: 16,
-          paddingBottom: 20,
-        }}
-      />
+      {selectedTab === 'Collections' && <Section data={data} isCollections={true} />}
+      {selectedTab === 'Outfits' && <Section data={data.reverse()} />}
 
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
@@ -165,43 +124,7 @@ const styles = StyleSheet.create({
     color: "#111827",
     fontWeight: "900",
   },
-  mainContent: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addChip: {
-    borderRadius: 20,
-    borderStyle: 'dashed',
-    borderWidth: 1,
-    borderColor: '#00000050',
-    width: _filterWidth,
-    height: _filterheight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 5
-  },
-  chipScrollContainer: {
-    marginVertical: 8,
-    gap: 5
-  },
-  chip: {
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#8b797950',
-    width: _filterWidth,
-    height: _filterheight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  chipActive: {
-    backgroundColor: "#ff818150",
-  },
-  chipText: {
-    fontSize: 14,
-    color: "#111827",
-  },
+
 
 
   fab: {
