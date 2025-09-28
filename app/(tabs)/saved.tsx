@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   addChip:{
     borderRadius: 20,
     borderStyle:'dashed',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#8b797950',
+    borderWidth: 1,
+    borderColor: '#00000050',
     width: _filterWidth,
     height: _filterheight,
     justifyContent: 'center',
