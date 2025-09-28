@@ -1,14 +1,23 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
-const CollectionCard = () => {
+interface CollectionCardProps {
+  item: {
+    leftImage: string;
+    right1: string;
+    right2: string;
+  }
+}
+
+const CollectionCard: FC<CollectionCardProps> = ({ item }) => {
+
   return (
     <View style={styles.card}>
-      <Image source={{ uri: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg' }} style={styles.cardImageLeft} />
+      <Image source={{ uri: item.leftImage }} style={styles.cardImageLeft} />
       <View style={styles.imageContainer}>
-        <Image source={{ uri: "https://images.pexels.com/photos/2693849/pexels-photo-2693849.jpeg" }} style={styles.cardImageRight} />
-        <Image source={{ uri: "https://images.pexels.com/photos/3054973/pexels-photo-3054973.jpeg" }} style={styles.cardImageRight} />
+        <Image source={{ uri: item.right1 }} style={styles.cardImageRight} />
+        <Image source={{ uri: item.right2 }} style={styles.cardImageRight} />
       </View>
 
       <TouchableOpacity style={styles.bookmarkBtn}>
@@ -32,10 +41,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 3,
     height: 360,
-    flexDirection:'row',
-    padding: 2,
+    flexDirection: 'row',
+    padding: 1,
     gap: 2,
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
   imageContainer: {
     // height: '99%',

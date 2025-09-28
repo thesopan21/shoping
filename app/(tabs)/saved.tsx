@@ -1,12 +1,12 @@
 // App.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Image,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -17,12 +17,36 @@ const tabs = ["Collections", "Outfits", "Items"];
 const _filterWidth = 90;
 const _filterheight = 36;
 
+const dummyData = [
+  {
+    "leftImage": 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+    "right1": "https://images.pexels.com/photos/2693849/pexels-photo-2693849.jpeg",
+    "right2": "https://images.pexels.com/photos/3054973/pexels-photo-3054973.jpeg"
+  },
+  {
+    "leftImage": "https://images.pexels.com/photos/2584269/pexels-photo-2584269.jpeg",
+    "right1": "https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg",
+    "right2": "https://images.pexels.com/photos/2752045/pexels-photo-2752045.jpeg",
+  },
+  {
+    "leftImage": "https://images.pexels.com/photos/1485031/pexels-photo-1485031.jpeg",
+    "right1": "https://images.pexels.com/photos/1631181/pexels-photo-1631181.jpeg",
+    "right2": "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg",
+  },
+  {
+    "leftImage": "https://images.pexels.com/photos/2010812/pexels-photo-2010812.jpeg",
+    "right1": "https://images.pexels.com/photos/2233703/pexels-photo-2233703.jpeg",
+    "right2": "https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg",
+  },
+]
+
 export default function App() {
   const [selectedTab, setSelectedTab] = useState('Collections');
   const [selectedFilter, setSelectedFilter] = useState('Work')
+  const [data, setData] = useState([...dummyData])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['left', 'right', 'top']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Saved</Text>
       </View>
@@ -70,7 +94,19 @@ export default function App() {
         </ScrollView>
       </View>
 
-      <CollectionCard />
+      <FlatList
+        data={data}
+        renderItem={({ item }) => {
+          return (
+            <CollectionCard item={item} />
+          )
+        }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          gap: 16,
+          paddingBottom: 20,
+        }}
+      />
 
       {/* Floating Button */}
       <TouchableOpacity style={styles.fab}>
@@ -84,7 +120,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f1efedff",
-    paddingHorizontal: 20,
+    paddingHorizontal: 12,
   },
   header: {
     paddingVertical: 12,
@@ -167,7 +203,7 @@ const styles = StyleSheet.create({
     color: "#111827",
   },
 
- 
+
   fab: {
     position: "absolute",
     bottom: 12,
